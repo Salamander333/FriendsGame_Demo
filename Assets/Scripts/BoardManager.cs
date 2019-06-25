@@ -23,9 +23,13 @@ public class BoardManager : MonoBehaviour
     public bool gameStarted = false;
 
     public GameObject player1;
+    public int player1Pos;
     public float player1_offset;
+
     public GameObject player2;
+    public int player2Pos;
     public float player2_offset;
+
     public GameObject player1_panel;
     public GameObject player2_panel;
 
@@ -60,6 +64,8 @@ public class BoardManager : MonoBehaviour
 
             player1 = Instantiate(player_1_model, new Vector3(board.slots[0].transform.position.x + player1_offset, 0, board.slots[0].transform.position.z + player1_offset), Quaternion.identity);
             player2 = Instantiate(player_2_model, new Vector3(board.slots[0].transform.position.x + player2_offset, 0, board.slots[0].transform.position.z + player2_offset), Quaternion.identity);
+            player1Pos = 0;
+            player2Pos = 0;
         }
     }
 
@@ -117,11 +123,31 @@ public class BoardManager : MonoBehaviour
 
     public void MovePlayer_1(int num)
     {
-        Debug.Log("player 1 moves");
+        if (player1Pos + num > 29)
+        {
+            player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
+            player1Pos = board.slots.Length - 1;
+        }
+        else
+        {
+            player1.transform.position = new Vector3(board.slots[player1Pos + num].transform.position.x + player1_offset, 0, board.slots[player1Pos + num].transform.position.z + player1_offset);
+            player1Pos += num;
+            currenPlayerTurn = 2;
+        }
     }
 
     public void MovePlayer_2(int num)
     {
-        Debug.Log("player 2 moves");
+        if(player1Pos + num > 29)
+        {
+            player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
+            player2Pos = board.slots.Length - 1;
+        }
+        else
+        {
+            player2.transform.position = new Vector3(board.slots[player2Pos + num].transform.position.x + player2_offset, 0, board.slots[player2Pos + num].transform.position.z + player2_offset);
+            player2Pos += num;
+            currenPlayerTurn = 1;
+        }
     }
 }
