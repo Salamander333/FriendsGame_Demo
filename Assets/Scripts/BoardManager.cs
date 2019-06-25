@@ -21,6 +21,9 @@ public class BoardManager : MonoBehaviour
     public GameObject readyPanel;
     public bool gameStarted = false;
 
+    public GameObject player1_panel;
+    public GameObject player2_panel;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -31,7 +34,12 @@ public class BoardManager : MonoBehaviour
         if (level == 2)
         {
             header = GameObject.Find("header").GetComponent<Text>();
+            readyPanel = GameObject.Find("ReadyPanel");
+            player1_panel = GameObject.Find("Player1_Panel");
+            player2_panel = GameObject.Find("Player1_Panel");
             readyPanel.SetActive(false);
+            player1_panel.SetActive(false);
+            player2_panel.SetActive(false);
         }
     }
 
@@ -62,6 +70,16 @@ public class BoardManager : MonoBehaviour
 
     public void StartGame()
     {
-
+        readyPanel.SetActive(false);
+        if (player1_init > player2_init)
+        {
+            header.text = "Player 1's turn.";
+            player1_panel.SetActive(true);
+        }
+        else if (player1_init > player2_init)
+        {
+            header.text = "Player 2's turn.";
+            player2_panel.SetActive(true);
+        }
     }
 }
