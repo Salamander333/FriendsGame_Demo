@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoardBehaviour : MonoBehaviour
 {
     public BoardManager boardManager;
+    public GameObject[] slots;
 
     void Start()
     {

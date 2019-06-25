@@ -26,13 +26,21 @@ public class Dice_Behaviour : MonoBehaviour
 
     public void SetWinningNumber(int number)
     {
-        if (boardManager.initFaze && boardManager.player1_init == 0)
+        if (boardManager.initFaze && boardManager.player1_init == 0 && !boardManager.gameStarted)
         {
             boardManager.player1_init = number;
         }
-        else if(boardManager.initFaze && boardManager.player2_init == 0)
+        else if(boardManager.initFaze && boardManager.player2_init == 0 && !boardManager.gameStarted)
         {
             boardManager.player2_init = number;
+        }
+        else if (boardManager.gameStarted && boardManager.currenPlayerTurn == 1)
+        {
+            boardManager.MovePlayer_1(number);
+        }
+        else if (boardManager.gameStarted && boardManager.currenPlayerTurn == 2)
+        {
+            boardManager.MovePlayer_2(number);
         }
     }
 }
