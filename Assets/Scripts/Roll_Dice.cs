@@ -17,10 +17,16 @@ public class Roll_Dice : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Dice").Length >= 1)
         {
             var diceToRemove = GameObject.FindGameObjectWithTag("Dice");
-            Destroy(diceToRemove);
+            if (diceToRemove.GetComponent<Dice_Behaviour>().Stationary)
+            {
+                Destroy(diceToRemove);
+            }
+            
         }
-
-        var dice = Instantiate(Dice, Dice_Spawn.position, Quaternion.identity);
-        dice.transform.Rotate(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f));
+        else
+        {
+            var dice = Instantiate(Dice, Dice_Spawn.position, Quaternion.identity);
+            dice.transform.Rotate(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f));
+        }
     }
 }

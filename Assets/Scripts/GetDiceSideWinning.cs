@@ -7,14 +7,16 @@ public class GetDiceSideWinning : MonoBehaviour
     GameObject Dice;
     bool sideSet = false;
 
+    private Dice_Behaviour diceBehaviour;
+
     void Awake()
     {
         Dice = this.transform.parent.gameObject;
+        diceBehaviour = Dice.GetComponent<Dice_Behaviour>();
     }
 
     void OnTriggerStay(Collider other)
     {
-        var diceBehaviour = Dice.GetComponent<Dice_Behaviour>();
         if (diceBehaviour.Stationary)
         {
             if (other.tag == "Board" && !sideSet)
