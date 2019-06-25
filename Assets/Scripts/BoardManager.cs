@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class BoardManager
+public class BoardManager : MonoBehaviour
 {
-    public static GameObject player_1_model;
-    public static GameObject player_2_model;
+    public GameObject player_1_model;
+    public GameObject player_2_model;
 
+    void Start()
+    {
+        DontDestroyOnLoad(this);
+    }
 }
