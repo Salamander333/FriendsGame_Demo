@@ -25,7 +25,7 @@ public class Roll_Dice : MonoBehaviour
         }
         else
         {
-            var dice = Instantiate(Dice, Dice_Spawn.position, Quaternion.identity);
+            var dice = Instantiate(Dice, Dice_Spawn.position, Dice_Spawn.transform.localRotation);
             dice.transform.Rotate(Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f), Random.Range(0.0f, 360.0f));
         }
     }

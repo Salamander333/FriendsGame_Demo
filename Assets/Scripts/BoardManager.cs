@@ -123,7 +123,7 @@ public class BoardManager : MonoBehaviour
 
     public void MovePlayer_1(int num)
     {
-        if (player1Pos + num > 29)
+        if (player1Pos + num > 30)
         {
             player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
             player1Pos = board.slots.Length - 1;
@@ -132,13 +132,14 @@ public class BoardManager : MonoBehaviour
         {
             player1.transform.position = new Vector3(board.slots[player1Pos + num].transform.position.x + player1_offset, 0, board.slots[player1Pos + num].transform.position.z + player1_offset);
             player1Pos += num;
-            currenPlayerTurn = 2;
         }
+        currenPlayerTurn = 2;
+
     }
 
     public void MovePlayer_2(int num)
     {
-        if(player1Pos + num > 29)
+        if(player2Pos + num > 30)
         {
             player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
             player2Pos = board.slots.Length - 1;
@@ -147,7 +148,7 @@ public class BoardManager : MonoBehaviour
         {
             player2.transform.position = new Vector3(board.slots[player2Pos + num].transform.position.x + player2_offset, 0, board.slots[player2Pos + num].transform.position.z + player2_offset);
             player2Pos += num;
-            currenPlayerTurn = 1;
         }
+        currenPlayerTurn = 1;
     }
 }
