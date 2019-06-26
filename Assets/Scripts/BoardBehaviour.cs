@@ -16,4 +16,19 @@ public class BoardBehaviour : MonoBehaviour
     {
         boardManager.StartGame();
     }
+
+    public void EndTurn()
+    {
+        if (boardManager.currenPlayerTurn == 1)
+        {
+            boardManager.currenPlayerTurn = 2;
+        }
+        else if (boardManager.currenPlayerTurn == 2)
+        {
+            boardManager.currenPlayerTurn = 1;
+        }
+
+        boardManager.endTurn.SetActive(false);
+        Destroy(GameObject.FindGameObjectWithTag("Dice"));
+    }
 }

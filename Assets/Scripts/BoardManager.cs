@@ -32,6 +32,9 @@ public class BoardManager : MonoBehaviour
     public int player2Score;
     public float player2_offset;
 
+    bool turnEnded;
+    public GameObject endTurn;
+
     public GameObject player1_panel;
     public GameObject player2_panel;
 
@@ -68,6 +71,9 @@ public class BoardManager : MonoBehaviour
             player2 = Instantiate(player_2_model, new Vector3(board.slots[0].transform.position.x + player2_offset, 0, board.slots[0].transform.position.z + player2_offset), Quaternion.identity);
             player1Pos = 0;
             player2Pos = 0;
+
+            endTurn = GameObject.Find("EndTurn");
+            endTurn.SetActive(false);
         }
     }
 
@@ -142,7 +148,6 @@ public class BoardManager : MonoBehaviour
                     player1Pos += num;
                     player1Score += targetSlot.GetComponent<SlotInfo>().scoreToGivePlayer;
                 }
-                currenPlayerTurn = 2;
                 break;
             case 2:
                 if (player2Pos + num > 30)
@@ -161,9 +166,9 @@ public class BoardManager : MonoBehaviour
 
                     }
                 }
-                currenPlayerTurn = 1;
                 break;
         }
-        Debug.Log(currenPlayerTurn);
+
+        endTurn.SetActive(true);
     }
 }
