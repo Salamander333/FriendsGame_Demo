@@ -40,6 +40,8 @@ public class BoardManager : MonoBehaviour
 
     public BoardBehaviour board;
 
+    public GameObject chanceCardPanel;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -74,6 +76,9 @@ public class BoardManager : MonoBehaviour
 
             endTurn = GameObject.Find("EndTurn");
             endTurn.SetActive(false);
+
+            chanceCardPanel = GameObject.Find("ChanceCardPanel");
+            chanceCardPanel.SetActive(false);
         }
     }
 
@@ -133,6 +138,8 @@ public class BoardManager : MonoBehaviour
 
     public void MovePlayer(int num)
     {
+        chanceCardPanel.transform.GetChild(3).GetComponent<Text>().text = "";
+        chanceCardPanel.transform.GetChild(1).GetComponent<Button>().interactable = true;
         switch (currenPlayerTurn)
         {
             case 1:
@@ -147,6 +154,12 @@ public class BoardManager : MonoBehaviour
                     player1.transform.position = new Vector3(targetSlot.transform.position.x + player1_offset, 0, targetSlot.transform.position.z + player1_offset);
                     player1Pos += num;
                     player1Score += targetSlot.GetComponent<SlotInfo>().scoreToGivePlayer;
+                    endTurn.SetActive(true);
+                    if (targetSlot.GetComponent<SlotInfo>().chanceCard)
+                    {
+                        endTurn.GetComponent<Button>().interactable = false;
+                        chanceCardPanel.SetActive(true);
+                    }
                 }
                 break;
             case 2:
@@ -161,14 +174,15 @@ public class BoardManager : MonoBehaviour
                     player2.transform.position = new Vector3(targetSlot.transform.position.x + player2_offset, 0, targetSlot.transform.position.z + player2_offset);
                     player2Pos += num;
                     player2Score += targetSlot.GetComponent<SlotInfo>().scoreToGivePlayer;
+                    endTurn.SetActive(true);
                     if (targetSlot.GetComponent<SlotInfo>().chanceCard)
                     {
-
+                        endTurn.GetComponent<Button>().interactable = false;
+                        chanceCardPanel.SetActive(true);
                     }
                 }
                 break;
         }
 
-        endTurn.SetActive(true);
     }
 }
