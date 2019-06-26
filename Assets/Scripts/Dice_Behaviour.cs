@@ -34,13 +34,9 @@ public class Dice_Behaviour : MonoBehaviour
         {
             boardManager.player2_init = number;
         }
-        else if (boardManager.gameStarted && boardManager.currenPlayerTurn == 1)
+        else if (boardManager.gameStarted)
         {
-            boardManager.MovePlayer_1(number);
-        }
-        else if (boardManager.gameStarted && boardManager.currenPlayerTurn == 2)
-        {
-            boardManager.MovePlayer_2(number);
+            boardManager.MovePlayer(number);
         }
     }
 }

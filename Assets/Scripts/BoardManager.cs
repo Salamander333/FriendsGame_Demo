@@ -24,10 +24,12 @@ public class BoardManager : MonoBehaviour
 
     public GameObject player1;
     public int player1Pos;
+    public int player1Score;
     public float player1_offset;
 
     public GameObject player2;
     public int player2Pos;
+    public int player2Score;
     public float player2_offset;
 
     public GameObject player1_panel;
@@ -99,11 +101,13 @@ public class BoardManager : MonoBehaviour
         {
             header.text = "Player 1's turn.";
             player1_panel.SetActive(true);
+            player2_panel.SetActive(false);
         }
         else if (currenPlayerTurn == 2 && gameStarted)
         {
             header.text = "Player 2's turn.";
             player2_panel.SetActive(true);
+            player1_panel.SetActive(false);
         }
     }
 
@@ -121,34 +125,45 @@ public class BoardManager : MonoBehaviour
         gameStarted = true;
     }
 
-    public void MovePlayer_1(int num)
+    public void MovePlayer(int num)
     {
-        if (player1Pos + num > 30)
+        switch (currenPlayerTurn)
         {
-            player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
-            player1Pos = board.slots.Length - 1;
-        }
-        else
-        {
-            player1.transform.position = new Vector3(board.slots[player1Pos + num].transform.position.x + player1_offset, 0, board.slots[player1Pos + num].transform.position.z + player1_offset);
-            player1Pos += num;
-        }
-        currenPlayerTurn = 2;
+            case 1:
+                if (player1Pos + num > 30)
+                {
+                    player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
+                    player1Pos = board.slots.Length - 1;
+                }
+                else
+                {
+                    var targetSlot = board.slots[player1Pos + num];
+                    player1.transform.position = new Vector3(targetSlot.transform.position.x + player1_offset, 0, targetSlot.transform.position.z + player1_offset);
+                    player1Pos += num;
+                    player1Score += targetSlot.GetComponent<SlotInfo>().scoreToGivePlayer;
+                }
+                currenPlayerTurn = 2;
+                break;
+            case 2:
+                if (player2Pos + num > 30)
+                {
+                    player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
+                    player2Pos = board.slots.Length - 1;
+                }
+                else
+                {
+                    var targetSlot = board.slots[player2Pos + num];
+                    player2.transform.position = new Vector3(targetSlot.transform.position.x + player2_offset, 0, targetSlot.transform.position.z + player2_offset);
+                    player2Pos += num;
+                    player2Score += targetSlot.GetComponent<SlotInfo>().scoreToGivePlayer;
+                    if (targetSlot.GetComponent<SlotInfo>().chanceCard)
+                    {
 
-    }
-
-    public void MovePlayer_2(int num)
-    {
-        if(player2Pos + num > 30)
-        {
-            player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
-            player2Pos = board.slots.Length - 1;
+                    }
+                }
+                currenPlayerTurn = 1;
+                break;
         }
-        else
-        {
-            player2.transform.position = new Vector3(board.slots[player2Pos + num].transform.position.x + player2_offset, 0, board.slots[player2Pos + num].transform.position.z + player2_offset);
-            player2Pos += num;
-        }
-        currenPlayerTurn = 1;
+        Debug.Log(currenPlayerTurn);
     }
 }
