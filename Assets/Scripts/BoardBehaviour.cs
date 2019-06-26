@@ -44,7 +44,8 @@ public class BoardBehaviour : MonoBehaviour
 
     public void DrawChanceCard()
     {
-        var card = Random.Range(0, 1);
+        var card = Random.Range(0, 2);
+        Debug.Log(card);
         boardManager.chanceCardPanel.transform.GetChild(3).GetComponent<Text>().text = $"{chanceCards[card]}";
         switch (card)
         {

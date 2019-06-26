@@ -42,6 +42,8 @@ public class BoardManager : MonoBehaviour
 
     public GameObject chanceCardPanel;
 
+    public GameObject gameOverPanel;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -79,6 +81,9 @@ public class BoardManager : MonoBehaviour
 
             chanceCardPanel = GameObject.Find("ChanceCardPanel");
             chanceCardPanel.SetActive(false);
+
+            gameOverPanel = GameObject.Find("OverPanel");
+            gameOverPanel.SetActive(false);
         }
     }
 
@@ -143,10 +148,11 @@ public class BoardManager : MonoBehaviour
         switch (currenPlayerTurn)
         {
             case 1:
-                if (player1Pos + num > 30)
+                if (player1Pos + num > 29)
                 {
                     player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
                     player1Pos = board.slots.Length - 1;
+                    GameOver(1);
                 }
                 else
                 {
@@ -163,10 +169,11 @@ public class BoardManager : MonoBehaviour
                 }
                 break;
             case 2:
-                if (player2Pos + num > 30)
+                if (player2Pos + num > 29)
                 {
                     player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
                     player2Pos = board.slots.Length - 1;
+                    GameOver(2);
                 }
                 else
                 {
@@ -183,6 +190,15 @@ public class BoardManager : MonoBehaviour
                 }
                 break;
         }
+    }
 
+    void GameOver(int winner)
+    {
+        gameOverPanel.SetActive(true);
+        gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = $"Player {winner} finished first";
+        gameOverPanel.transform.GetChild(2).GetComponent<Text>().text = $"Scores:\n Player 1 : {player1Score} points\n Player 2 : {player2Score} points";
+        header.text = "";
+        player1_panel.SetActive(false);
+        player2_panel.SetActive(false);
     }
 }
