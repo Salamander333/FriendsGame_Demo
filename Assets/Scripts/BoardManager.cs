@@ -148,7 +148,7 @@ public class BoardManager : MonoBehaviour
         switch (currenPlayerTurn)
         {
             case 1:
-                if (player1Pos + num > 29)
+                if (player1Pos + num >= 29)
                 {
                     player1.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player1_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player1_offset);
                     player1Pos = board.slots.Length - 1;
@@ -169,7 +169,7 @@ public class BoardManager : MonoBehaviour
                 }
                 break;
             case 2:
-                if (player2Pos + num > 29)
+                if (player2Pos + num >= 29)
                 {
                     player2.transform.position = new Vector3(board.slots[board.slots.Length - 1].transform.position.x + player2_offset, 0, board.slots[board.slots.Length - 1].transform.position.z + player2_offset);
                     player2Pos = board.slots.Length - 1;
